@@ -35,6 +35,7 @@
 
 // The `initSqlJs` function is globally provided by all of the main dist files if loaded in the browser.
 // We must specify this locateFile function if we are loading a wasm file from anywhere other than the current html page's folder.
+import japan from './japan.json' assert {type: 'json'}
 
 var SQL;
 initSqlJs().then(function (sql) {
@@ -61,8 +62,17 @@ const m = new Model({
     ],
 })
 
-const d = new Deck(1347617346765, "New deck")
+const d = new Deck(1347617346765, "japan")
 const p = new Package()
+
+
+function doit(){    
+    for ( key in japan){
+        d.addNote(m.note([japan[key]["Kana"], japan[key]["definisi"]]))
+        // d.addNote(m.note(['this is front', 'this is back'], ['test_tag1', 'test_tag2']))
+    }
+}
+
 
 // add note to deck
 function addNote() {
@@ -77,6 +87,7 @@ function addNote() {
 
 // add deck to package and export
 function exportDeck() {
+    doit()
     p.addDeck(d)
-    p.writeToFile('deck.apkg')
+    p.writeToFile('lainla.apkg')
 }
